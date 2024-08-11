@@ -5,16 +5,16 @@ import { fetchTodos, createTodo, updateTodo, deleteTodo } from '../api/todoApi';
 import '../styles/App.css';
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([]); // State to hold the list of todos
 
+  // useEffect hook to fetch todos when the component is first rendered
   useEffect(() => {
     fetchTodos()
-      .then(setTodos)
+      .then(setTodos) // Set the state with the fetched todos
       .catch(error => {
-        console.error("Failed to fetch todos:", error);
-        
+        console.error("Failed to fetch todos:", error); // Log an error if the fetch fails   
       });
-  }, []);
+  }, []); // The empty dependency array ensures this effect runs only once, when the component mounts
 
   const handleAddTodo = (text, dueDate) => {
     createTodo(text, dueDate).then(newTodo => setTodos([...todos, newTodo]));
